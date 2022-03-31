@@ -1,5 +1,5 @@
 __pycache__/
-/mmflask/lib/torch
+/mmflask/lib
 *.py[cod]
 *$py.class
 
