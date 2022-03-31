@@ -1,7 +1,4 @@
-from encodings import utf_8
 import json
-from lib2to3.pgen2 import token
-from unittest import result
 import cv2
 import urllib.request
 import numpy as np
