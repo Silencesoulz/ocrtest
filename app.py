@@ -16,7 +16,7 @@ def home():
 @app.route('/apitest/', methods=['GET'])
 def get_api():
     #img = cv2.imread('/Users/kevin/muvmeeflask/images9644.jpeg')
-    url = 'https://firebasestorage.googleapis.com/v0/b/muvmee-flutter.appspot.com/o/CaptureImg%2Fkeviniiz2543%40gmail.com%2Fplate5.jpeg?alt=media&token=9fe87f31-0bec-4138-b4fa-b8879d58135d' 
+    url = 'https://firebasestorage.googleapis.com/v0/b/muvmee-flutter.appspot.com/o/CaptureImg%2Fkeviniiz2543%40gmail.com%2Fimages5101.jpg?alt=media&token=5fb4908b-f7e2-4176-9fd6-28f69f0dec49' 
     #url = request.args.get('imgurl')
     with urllib.request.urlopen(url) as resp:
         img = np.asarray(bytearray(resp.read()), dtype="uint8")
