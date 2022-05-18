@@ -5,7 +5,7 @@ import numpy as np
 import imutils
 import easyocr
 from flask import Flask, jsonify,request
-import struct
+
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -49,7 +49,7 @@ def get_api():
     cropped_image = gray[x1:x2+1, y1:y2+1]
     
 # easyocr part
-    reader = easyocr.Reader(['th'])
+    reader = easyocr.Reader(['th'], gpu=False, download_enabled=False)
     result = reader.readtext(cropped_image,detail=0,paragraph=True)
     result
 
@@ -101,7 +101,7 @@ def get_api2():
     cropped_image = gray[x1:x2+1, y1:y2+1]
     
 # easyocr part
-    reader = easyocr.Reader(['th'])
+    reader = easyocr.Reader(['th'], gpu=False, download_enabled=False)
     result = reader.readtext(cropped_image,detail=0,paragraph=True)
     result
 
