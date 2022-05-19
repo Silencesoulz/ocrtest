@@ -65,7 +65,7 @@ def get_api2():
         numberplate = result[0];
         province = result[1];
 
-    return jsonify(numberplate=numberplate,province=province),201
+    return jsonify(numberplate=numberplate,province=province),200
 
 if __name__ == '__main__':
     app.run(debug=True)
