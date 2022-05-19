@@ -52,7 +52,7 @@ def get_api2():
     cropped_image = gray[x1:x2+1, y1:y2+1]
     
 # easyocr part
-    reader = easyocr.Reader(['th'], gpu=False, download_enabled=False)
+    reader = easyocr.Reader(['th'], gpu=False, model_storage_directory='~/.EasyOCR', download_enabled=False)
     result = reader.readtext(cropped_image,detail=0,paragraph=True)
     result
 
