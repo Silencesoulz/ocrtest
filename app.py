@@ -3,10 +3,10 @@ import cv2
 import urllib.request
 import numpy as np
 import imutils
-import easyocr
+import os
 from flask import Flask, jsonify,request
-
-
+from google.cloud import vision
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "mmflask-79a1450922b0.json"
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
@@ -51,22 +51,31 @@ def get_api2():
     (x2, y2) = (np.max(x), np.max(y))
     cropped_image = gray[x1:x2+1, y1:y2+1]
     
-# easyocr part
-    reader = easyocr.Reader(['th'], gpu=False)
-    result = reader.readtext(cropped_image,detail=0,paragraph=True)
-    result
+# easyocr part change to cloud vision
+    client = vision.ImageAnnotatorClient()
+    image = vision.Image(content=cv2.imencode('.jpg', cropped_image)[1].tostring())
+    response = client.text_detection(image=image)
+    texts = response.text_annotations
+    text = texts[0].description
+    # print('Text: {}'.format(text))
+    # print('Confidence: {}'.format(texts[0].score))
 
-# string split
-    result = result[0].split(sep=" ",maxsplit=5);
-    if len(result) == 3:
-        numberplate = result[0]+result[1]
-        province = result[2]
-    elif len(result) == 2:
-        numberplate = result[0];
-        province = result[1];
-
-    return jsonify(numberplate=numberplate,province=province),200
+    print(text)
+    return jsonify(text)
+    # reader = easyocr.Reader(['th'], gpu=False)
+    # result = reader.readtext(cropped_image,detail=0,paragraph=True)
+    # result
 
 if __name__ == '__main__':
     app.run(debug=True)
 
+# # string split
+#     result = result[0].split(sep=" ",maxsplit=5);
+#     if len(result) == 3:
+#         numberplate = result[0]+result[1]
+#         province = result[2]
+#     elif len(result) == 2:
+#         numberplate = result[0];
+#         province = result[1];
+
+#     return jsonify(numberplate=numberplate,province=province),200
